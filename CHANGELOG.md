@@ -1,3 +1,6 @@
+## 0.0.4
+* Catch exception when calling `getAdvertisingId` and `limitAdTrackingEnabled`.
+
 ## 0.0.3
 * Rename TrackingAuthorizationStatus to AdTrackingAuthorizationStatus
 
