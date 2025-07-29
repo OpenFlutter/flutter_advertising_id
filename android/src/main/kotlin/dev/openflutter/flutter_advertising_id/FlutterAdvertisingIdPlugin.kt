@@ -32,36 +32,48 @@ class FlutterAdvertisingIdPlugin : FlutterPlugin, MethodCallHandler, CoroutineSc
     }
 
     override fun onMethodCall(call: MethodCall, result: Result) {
-        if (call.method == "getAdvertisingId") {
-            applicationContext?.run {
-                launch {
-                    val adInfo = withContext(Dispatchers.IO) {
-                        AdvertisingIdClient.getAdvertisingIdInfo(this@run.applicationContext)
+        when (call.method) {
+            "getAdvertisingId" -> {
+                applicationContext?.run {
+                    launch {
+                        val adInfo = withContext(Dispatchers.IO) {
+                            runCatching {
+                                AdvertisingIdClient.getAdvertisingIdInfo(this@run.applicationContext)
+                            }.getOrNull()
+                        }
+                        withContext(Dispatchers.Main) {
+                            result.success(adInfo?.id)
+                        }
                     }
-                    withContext(Dispatchers.Main) {
-                        result.success(adInfo.id)
-                    }
+                } ?: run {
+                    result.success(null)
                 }
-            } ?: run {
-                result.success(null)
             }
-        } else if (call.method == "getAdvertisingId") {
-            applicationContext?.run {
-                launch {
-                    val adInfo = withContext(Dispatchers.IO) {
-                        AdvertisingIdClient.getAdvertisingIdInfo(this@run.applicationContext)
+
+            "limitAdTrackingEnabled" -> {
+                applicationContext?.run {
+                    launch {
+                        val adInfo = withContext(Dispatchers.IO) {
+                            runCatching {
+                                AdvertisingIdClient.getAdvertisingIdInfo(this@run.applicationContext)
+                            }.getOrNull()
+                        }
+                        withContext(Dispatchers.Main) {
+                            result.success(adInfo?.isLimitAdTrackingEnabled ?: false)
+                        }
                     }
-                    withContext(Dispatchers.Main) {
-                        result.success(adInfo.isLimitAdTrackingEnabled)
-                    }
+                } ?: run {
+                    result.success(null)
                 }
-            } ?: run {
-                result.success(null)
             }
-        } else if (call.method == "authorizationStatus") {
-            result.success(3)
-        } else {
-            result.notImplemented()
+
+            "authorizationStatus" -> {
+                result.success(3)
+            }
+
+            else -> {
+                result.notImplemented()
+            }
         }
     }
 
