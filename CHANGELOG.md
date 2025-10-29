@@ -1,3 +1,6 @@
+## 0.0.5
+* Update AGP to 8.9.1.
+
 ## 0.0.4
 * Catch exception when calling `getAdvertisingId` and `limitAdTrackingEnabled`.
 
