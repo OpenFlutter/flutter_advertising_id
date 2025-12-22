@@ -1,3 +1,6 @@
+## 1.0.0
+* Stable
+
 ## 0.0.5
 * Update AGP to 8.9.1.
 
