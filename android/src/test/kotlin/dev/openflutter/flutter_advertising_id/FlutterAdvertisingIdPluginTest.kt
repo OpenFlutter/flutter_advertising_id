@@ -1,5 +1,6 @@
 package dev.openflutter.flutter_advertising_id
 
+import android.content.Context
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import kotlin.test.Test
@@ -12,16 +13,48 @@ import org.mockito.Mockito
  * line by running `./gradlew testDebugUnitTest` in the `example/android/` directory, or
  * you can run them directly from IDEs that support JUnit such as Android Studio.
  */
-
 internal class FlutterAdvertisingIdPluginTest {
   @Test
-  fun onMethodCall_getPlatformVersion_returnsExpectedValue() {
+  fun onMethodCall_getAdvertisingId_withoutContext_returnsNull() {
     val plugin = FlutterAdvertisingIdPlugin()
 
-    val call = MethodCall("getPlatformVersion", null)
+    val call = MethodCall("getAdvertisingId", false)
     val mockResult: MethodChannel.Result = Mockito.mock(MethodChannel.Result::class.java)
     plugin.onMethodCall(call, mockResult)
 
-    Mockito.verify(mockResult).success("Android " + android.os.Build.VERSION.RELEASE)
+    Mockito.verify(mockResult).success(null)
+  }
+
+  @Test
+  fun onMethodCall_limitAdTrackingEnabled_withoutContext_returnsNull() {
+    val plugin = FlutterAdvertisingIdPlugin()
+
+    val call = MethodCall("limitAdTrackingEnabled", null)
+    val mockResult: MethodChannel.Result = Mockito.mock(MethodChannel.Result::class.java)
+    plugin.onMethodCall(call, mockResult)
+
+    Mockito.verify(mockResult).success(null)
+  }
+
+  @Test
+  fun onMethodCall_authorizationStatus_returnsAuthorized() {
+    val plugin = FlutterAdvertisingIdPlugin()
+
+    val call = MethodCall("authorizationStatus", null)
+    val mockResult: MethodChannel.Result = Mockito.mock(MethodChannel.Result::class.java)
+    plugin.onMethodCall(call, mockResult)
+
+    Mockito.verify(mockResult).success(3)
+  }
+
+  @Test
+  fun onMethodCall_unknownMethod_returnsNotImplemented() {
+    val plugin = FlutterAdvertisingIdPlugin()
+
+    val call = MethodCall("unknownMethod", null)
+    val mockResult: MethodChannel.Result = Mockito.mock(MethodChannel.Result::class.java)
+    plugin.onMethodCall(call, mockResult)
+
+    Mockito.verify(mockResult).notImplemented()
   }
 }
