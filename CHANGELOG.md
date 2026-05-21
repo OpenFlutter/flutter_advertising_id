@@ -1,3 +1,6 @@
+## 1.0.2
+* Built-in Kotlin migration
+
 ## 1.0.1
 * Android SDK => 18.3.0
 
