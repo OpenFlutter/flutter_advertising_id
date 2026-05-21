@@ -1,28 +1,16 @@
 PODS:
-  - advertising_id_flutter (0.0.1):
-    - Flutter
   - Flutter (1.0.0)
-  - integration_test (0.0.1):
-    - Flutter
 
 DEPENDENCIES:
-  - advertising_id_flutter (from `.symlinks/plugins/advertising_id_flutter/ios`)
   - Flutter (from `Flutter`)
-  - integration_test (from `.symlinks/plugins/integration_test/ios`)
 
 EXTERNAL SOURCES:
-  advertising_id_flutter:
-    :path: ".symlinks/plugins/advertising_id_flutter/ios"
   Flutter:
     :path: Flutter
-  integration_test:
-    :path: ".symlinks/plugins/integration_test/ios"
 
 SPEC CHECKSUMS:
-  advertising_id_flutter: 1b8c9a0091c6e7503a32f2eeaa69dc73f4c7c303
-  Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
-  integration_test: 4a889634ef21a45d28d50d622cf412dc6d9f586e
+  Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467
 
-PODFILE CHECKSUM: 4305caec6b40dde0ae97be1573c53de1882a07e5
+PODFILE CHECKSUM: 3c63482e143d1b91d2d2560aee9fb04ecc74ac7e
 
 COCOAPODS: 1.16.2

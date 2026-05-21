@@ -11,11 +11,15 @@ let package = Package(
     products: [
         .library(name: "advertising-id-flutter", targets: ["advertising_id_flutter"])
     ],
-    dependencies: [],
+    dependencies: [
+    .package(name: "FlutterFramework", path: "../FlutterFramework")
+    ],
     targets: [
         .target(
             name: "advertising_id_flutter",
-            dependencies: [],
+            dependencies: [
+              .product(name: "FlutterFramework", package: "FlutterFramework")
+            ],
             resources: [
                 // If your plugin requires a privacy manifest, for example if it uses any required
                 // reason APIs, update the PrivacyInfo.xcprivacy file to describe your plugin's
