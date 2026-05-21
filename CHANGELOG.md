@@ -1,3 +1,9 @@
+## 1.0.1
+* Android SDK => 18.3.0
+
+## 1.0.0
+* Stable
+
 ## 0.0.5
 * Update AGP to 8.9.1.
 
