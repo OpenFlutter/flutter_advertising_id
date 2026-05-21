@@ -1,3 +1,6 @@
+## 1.0.3
+* Add `FlutterFramework` in `Package.swift`.
+
 ## 1.0.2
 * Built-in Kotlin migration
 
