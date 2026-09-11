@@ -1,16 +1,46 @@
-import 'package:flutter_test/flutter_test.dart';
 import 'package:advertising_id_flutter/flutter_advertising_id.dart';
-import 'package:advertising_id_flutter/flutter_advertising_id_platform_interface.dart';
-import 'package:advertising_id_flutter/flutter_advertising_id_method_channel.dart';
-import 'package:plugin_platform_interface/plugin_platform_interface.dart';
-
+import 'package:flutter/services.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  final FlutterAdvertisingIdPlatform initialPlatform = FlutterAdvertisingIdPlatform.instance;
+  TestWidgetsFlutterBinding.ensureInitialized();
+  const channel = MethodChannel('dev.openflutter/flutter_advertising_id');
+  final messenger =
+      TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger;
+  final advertisingId = AdvertisingId();
 
-  test('$MethodChannelFlutterAdvertisingId is the default instance', () {
-    expect(initialPlatform, isInstanceOf<MethodChannelFlutterAdvertisingId>());
+  tearDown(() => messenger.setMockMethodCallHandler(channel, null));
+
+  test(
+    'reading an ID defaults to not requesting tracking authorization',
+    () async {
+      MethodCall? received;
+      messenger.setMockMethodCallHandler(channel, (call) async {
+        received = call;
+        return 'test-oaid';
+      });
+
+      expect(await advertisingId.getAdvertisingId(), 'test-oaid');
+      expect(received!.method, 'getAdvertisingId');
+      expect(received!.arguments, false);
+    },
+  );
+
+  test('caller can explicitly request tracking authorization', () async {
+    MethodCall? received;
+    messenger.setMockMethodCallHandler(channel, (call) async {
+      received = call;
+      return 'test-oaid';
+    });
+
+    expect(await advertisingId.getAdvertisingId(true), 'test-oaid');
+    expect(received!.method, 'getAdvertisingId');
+    expect(received!.arguments, true);
   });
 
+  test('an unavailable advertising ID remains null', () async {
+    messenger.setMockMethodCallHandler(channel, (_) async => null);
 
+    expect(await advertisingId.getAdvertisingId(false), isNull);
+  });
 }

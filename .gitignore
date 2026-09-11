@@ -31,3 +31,13 @@ migrate_working_dir/
 .flutter-plugins
 .flutter-plugins-dependencies
 build/
+
+# HarmonyOS generated files and local signing
+oh_modules/
+.hvigor/
+local.properties
+oh-package-lock.json5
+**/GeneratedPluginRegistrant.ets
+*.p12
+*.p7b
+*.cer

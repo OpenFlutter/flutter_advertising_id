@@ -1,0 +1,9 @@
+{
+  "name": "advertising_id_flutter",
+  "version": "1.1.0",
+  "description": "HarmonyOS OAID support for advertising_id_flutter.",
+  "main": "index.ets",
+  "author": "",
+  "license": "Apache-2.0",
+  "dependencies": {}
+}
