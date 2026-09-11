@@ -9,7 +9,8 @@ class AdvertisingId {
   /// tracking authorization from the user before retrieving the ID.
   ///
   /// Returns a `Future` that resolves to the advertising ID as a `String?`.
-  /// If the ID cannot be retrieved, it resolves to `null`.
+  /// On HarmonyOS, missing permission or an unavailable ID resolves to `null`.
+  /// Native service failures may throw a platform exception.
   Future<String?> getAdvertisingId([
     bool requestTrackingAuthorization = false,
   ]) async {
@@ -19,6 +20,8 @@ class AdvertisingId {
   }
 
   /// Checks whether the "Limit Ad Tracking" setting is enabled on the device.
+  /// On HarmonyOS, reports whether app tracking permission is not granted;
+  /// querying this value does not request permission.
   ///
   /// Returns a `Future` that resolves to a `bool?` indicating the status:
   /// - `true`: Limit Ad Tracking is enabled.
@@ -28,14 +31,16 @@ class AdvertisingId {
     return await FlutterAdvertisingIdPlatform.instance.limitAdTrackingEnabled;
   }
 
-  /// Retrieves the current tracking authorization status of the device. Please not that this will always
-  /// return `TrackingAuthorizationStatus.authorized` on Android.
+  /// Retrieves the current tracking authorization status of the device. This will always
+  /// return `AdTrackingAuthorizationStatus.authorized` on Android.
+  /// HarmonyOS returns authorized or denied based on app tracking permission,
+  /// without requesting permission or distinguishing a first-time denial.
   ///
-  /// Returns a `Future` that resolves to a `TrackingAuthorizationStatus` enum value:
-  /// - `TrackingAuthorizationStatus.notDetermined`: The user has not yet made a choice regarding tracking.
-  /// - `TrackingAuthorizationStatus.restricted`: The user has restricted tracking.
-  /// - `TrackingAuthorizationStatus.denied`: The user has denied tracking.
-  /// - `TrackingAuthorizationStatus.authorized`: The user has authorized tracking.
+  /// Returns a `Future` that resolves to a `AdTrackingAuthorizationStatus` enum value:
+  /// - `AdTrackingAuthorizationStatus.notDetermined`: The user has not yet made a choice regarding tracking.
+  /// - `AdTrackingAuthorizationStatus.restricted`: The user has restricted tracking.
+  /// - `AdTrackingAuthorizationStatus.denied`: The user has denied tracking.
+  /// - `AdTrackingAuthorizationStatus.authorized`: The user has authorized tracking.
   Future<AdTrackingAuthorizationStatus> get authorizationStatus async {
     return await FlutterAdvertisingIdPlatform.instance.authorizationStatus;
   }
