@@ -1,0 +1,10 @@
+{
+  "module": {
+    "name": "advertising_id_flutter",
+    "type": "har",
+    "deviceTypes": [
+      "default",
+      "tablet"
+    ]
+  }
+}
